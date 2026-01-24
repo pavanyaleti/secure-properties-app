@@ -4,7 +4,7 @@
 
 	<groupId>e5c5779a-6e88-4a3a-9cbd-45eef542d8f3</groupId>
 	<artifactId>secure-properties-app</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.0.2</version>
 	<packaging>mule-application</packaging>
 
 	<name>secure-properties-app</name>
