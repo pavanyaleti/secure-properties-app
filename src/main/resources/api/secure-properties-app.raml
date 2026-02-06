@@ -1,0 +1,36 @@
+#%RAML 1.0
+title: secure-properties-app
+
+types:
+  secureProperty:
+    type: object
+    properties:
+      property:
+        required: true
+        type: string
+/encrypt:
+  post:
+    body:
+      application/json:
+        type: secureProperty
+    responses:
+      201:
+        body:
+          application/json:
+            example:
+              {
+              "Encrypted Value": "dafdafsasdfefad"
+              }
+/decrypt:
+  post:
+    body:
+      application/json:
+        type: secureProperty
+    responses:
+      201:
+        body:
+          application/json:
+            example:
+              {
+              "decrypted Value": "dafdafsasdfefad"
+              }

@@ -6,17 +6,26 @@
 	xmlns:http="http://www.mulesoft.org/schema/mule/http"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd ">
+	<http:listener-config
+		name="secure-properties-app-httpListenerConfig">
+		<http:listener-connection host="0.0.0.0"
+			port="8081" />
+	</http:listener-config>
+	<apikit:config name="secure-properties-app-config"
+		api="secure-properties-app.raml"
+		outboundHeadersMapName="outboundHeaders"
+		httpStatusVarName="httpStatus" />
 	<flow name="secure-properties-app-main">
 		<http:listener
-			path="/api/*" config-ref="secure-property-tool-httpListenerConfig">
+			config-ref="secure-properties-app-httpListenerConfig" path="/api/*">
 			<http:response
 				statusCode="#[vars.httpStatus default 200]">
-				<http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+				<http:headers>#[vars.outboundHeaders default {}]</http:headers>
 			</http:response>
 			<http:error-response
 				statusCode="#[vars.httpStatus default 500]">
-				<http:body><![CDATA[#[payload]]]></http:body>
-				<http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+				<http:body>#[payload]</http:body>
+				<http:headers>#[vars.outboundHeaders default {}]</http:headers>
 			</http:error-response>
 		</http:listener>
 		<apikit:router config-ref="secure-properties-app-config" />
@@ -111,15 +120,16 @@ output application/json
 	</flow>
 	<flow name="secure-properties-app-console">
 		<http:listener
-			path="/console/*" config-ref="secure-property-tool-httpListenerConfig">
+			config-ref="secure-properties-app-httpListenerConfig"
+			path="/console/*">
 			<http:response
 				statusCode="#[vars.httpStatus default 200]">
-				<http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+				<http:headers>#[vars.outboundHeaders default {}]</http:headers>
 			</http:response>
 			<http:error-response
 				statusCode="#[vars.httpStatus default 500]">
-				<http:body><![CDATA[#[payload]]]></http:body>
-				<http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+				<http:body>#[payload]</http:body>
+				<http:headers>#[vars.outboundHeaders default {}]</http:headers>
 			</http:error-response>
 		</http:listener>
 		<apikit:console
@@ -144,19 +154,19 @@ output application/json
 	<flow
 		name="post:\decrypt:application\json:secure-properties-app-config">
 		<set-variable value="decrypt" doc:name="operation"
-			doc:id="dc12dd20-4f21-45f3-8eea-9312f484eeba"
+			doc:id="6d031eb5-f6ae-4d50-a15e-349c33ef8e89"
 			variableName="operation" />
 		<flow-ref doc:name="encrypt-decrypt-string-main"
-			doc:id="52aa2aac-3983-45a4-a5cf-306bc3244a2c"
+			doc:id="4b3b8d0b-3caf-4ae3-82b5-57471eb0778c"
 			name="encrypt-decrypt-string-main" />
 	</flow>
 	<flow
 		name="post:\encrypt:application\json:secure-properties-app-config">
 		<set-variable value="encrypt" doc:name="operation"
-			doc:id="e2709d58-2681-4acc-9b57-148784894d54"
+			doc:id="ef952659-4653-4214-8f77-fb3c057c5388"
 			variableName="operation" />
 		<flow-ref doc:name="encrypt-decrypt-string-main"
-			doc:id="ec0c4879-b34a-4830-8964-2278e147cece"
+			doc:id="482110a8-536d-4f8b-bf56-56725cb4ac35"
 			name="encrypt-decrypt-string-main" />
 	</flow>
 </mule>
