@@ -10,16 +10,6 @@
 http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd 
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd">
-	<http:listener-config
-		name="secure-property-tool-httpListenerConfig">
-		<http:listener-connection host="${httpListener.host}"
-			port="${httpListener.port}" readTimeout="${httpListener.readTimeout}"/>
-	</http:listener-config>
-	<apikit:config name="secure-properties-app-config"
-		api="resource::e5c5779a-6e88-4a3a-9cbd-45eef542d8f3:secure-properties-app:1.0.0:raml:zip:secure-properties-app.raml"
-		outboundHeadersMapName="outboundHeaders"
-		httpStatusVarName="httpStatus" />
-	<api-gateway:autodiscovery apiId="${api.id}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="427bf7aa-6385-4bdd-86b5-4400399a5569" flowRef="secure-properties-app-main" />
 	<configuration-properties doc:name="common-properties" doc:id="d956bc1b-ef41-43b0-acb6-54b08de6cb86" file="properties\common-properties.yaml" />
 	<configuration-properties doc:name="local-properties" doc:id="596a72b4-fa2a-4886-9995-8799ae07308e" file="properties/${env}-properties.yaml" />
 	<http:request-config name="Secure-property-tool"
